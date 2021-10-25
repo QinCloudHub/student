@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.app.core.mapper.TeacherMapper">
+
+    <resultMap id="teacherMap" type="Teacher">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="teacher_number" property="teacherNumber"/>
+        <result column="birth_date" property="birthDate" />
+        <result column="gender" property="gender" />
+        <result column="national" property="national" />
+        <result column="phone_number" property="phoneNumber" />
+        <result column="native_place" property="nativePlace"/>
+<!--        <association property="team" column="team_id"-->
+<!--            resultMap="teamMap" columnPrefix="t_"/>-->
+    </resultMap>
+
+    <!--使用嵌套查询，可避免n+1问题-->
+    <select id="selectTeacher" resultMap="teacherMap">
+        select
+            id,
+            name,
+            teacher_number,
+            birth_date,
+            gender,
+            national,
+            phone_number,
+            native_place
+        from teacher
+        where id = #{id};
+    </select>
+
+    <select id="selectAllTeacher" resultMap="teacherMap">
+        select *
+        from teacher;
+    </select>
+
+<!--    查询总个数 （只有一个参数时用_parameter） 使用CONCAT拼接%通配符 -->
+    <select id="selectTeacherCount" resultType="java.lang.Integer">
+        select count(*)
+        from teacher
+        <if test="_parameter!=null">where name like CONCAT('%',#{_parameter},'%')</if>
+    </select>
+
+    <select id="selectTeacherPage" resultMap="teacherMap">
+        select *
+        from teacher
+        <if test="name!=null">where name like CONCAT('%',#{name},'%')</if>
+        order by CONVERT(teacher_number,SIGNED) asc
+        limit  #{startIndex},#{pageSize}
+    </select>
+
+    <insert id="insertTeacher" parameterType="com.management.app.core.model.entity.Teacher" keyProperty="id">
+        insert into
+        teacher(name, teacher_number, birth_date, gender, national, phone_number, native_place)
+        values(#{name}, #{teacherNumber}, #{birthDate}, #{gender}, #{national}, #{phoneNumber}, #{nativePlace});
+    </insert>
+
+    <update id="updateTeacher" parameterType="com.management.app.core.model.entity.Teacher">
+        UPDATE teacher
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="teacherNumber!=null">teacher_number=#{teacherNumber},</if>
+            <if test="birthDate!=null">birth_date=#{birthDate},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="national!=null">national=#{national},</if>
+            <if test="phoneNumber!=null">phone_number=#{phoneNumber},</if>
+            <if test="nativePlace!=null">native_place=#{nativePlace},</if>
+        </set>
+        WHERE
+        id=#{id};
+    </update>
+
+    <delete id="deleteTeacher" parameterType="int" >
+        delete from
+        teacher
+        where
+        id=#{id}
+    </delete>
+
+
+</mapper>

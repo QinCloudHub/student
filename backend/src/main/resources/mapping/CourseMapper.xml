@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.app.core.mapper.CourseMapper">
+
+    <resultMap id="courseMap" type="Course">
+        <result column="id" property="id"/>
+        <result column="semester" property="semester"/>
+        <result column="start_at" property="startAt"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="team_id" property="teamId"/>
+        <result column="teacher_id" property="teacherId"/>
+    </resultMap>
+
+    <!--使用嵌套查询，可避免n+1问题-->
+    <select id="selectCourse" resultMap="courseMap">
+        select *
+        from course
+        where id = #{id};
+    </select>
+
+    <select id="selectAllCourse" resultMap="courseMap">
+        select *
+        from course
+        order by semester asc;
+    </select>
+
+<!--    查询总个数 （只有一个参数时用_parameter） 使用CONCAT拼接%通配符 -->
+    <select id="selectCourseCount" resultType="java.lang.Integer">
+        select count(*)
+        from course
+        <where>
+            <if test="semester != null and semester != ''">and semester = #{semester}</if>
+            <if test="name != null and name != ''">and name like CONCAT('%',#{name},'%')</if>
+            <if test="teamId != null">and team_id = #{teamId}</if>
+            <if test="teacherId != null">and teacher_id = #{teacherId}</if>
+        </where>
+    </select>
+
+    <select id="selectCoursePage" resultMap="courseMap">
+        select *
+        from course
+        <where>
+            <if test="semester != null and semester != ''">and semester = #{semester}</if>
+            <if test="name != null and name != ''">and name like CONCAT('%',#{name},'%')</if>
+            <if test="teamId != null">and team_id = #{teamId}</if>
+            <if test="teacherId != null">and teacher_id = #{teacherId}</if>
+        </where>
+        order by semester asc
+        limit  #{startIndex},#{pageSize}
+    </select>
+
+    <insert id="insertCourse" parameterType="com.management.app.core.model.entity.Course" keyProperty="id">
+        insert into
+        course(name, semester, start_at, description, team_id, teacher_id)
+        values(#{name}, #{semester}, #{startAt}, #{description}, #{teamId}, #{teacherId});
+    </insert>
+
+    <update id="updateCourse" parameterType="com.management.app.core.model.entity.Course">
+        UPDATE course
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="semester!=null">semester=#{semester},</if>
+            <if test="startAt!=null">start_at=#{startAt},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="teamId!=null">team_id=#{teamId},</if>
+            <if test="teacherId!=null">teacher_id=#{teacherId},</if>
+        </set>
+        WHERE
+        id=#{id};
+    </update>
+
+    <delete id="deleteCourse" parameterType="int" >
+        delete from
+        course
+        where
+        id=#{id}
+    </delete>
+
+    <delete id="deleteCoursesByTeam" parameterType="int">
+        delete from
+        course
+        where
+        team_id=#{teamId}
+    </delete>
+
+    <delete id="deleteCoursesByTeacher" parameterType="int">
+        delete from
+        course
+        where
+        teacher_id=#{teacherId}
+    </delete>
+
+
+</mapper>

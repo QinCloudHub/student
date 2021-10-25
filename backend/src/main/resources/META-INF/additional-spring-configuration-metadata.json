@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "db.link",
+      "type": "java.lang.String",
+      "description": "数据库地址."
+    },
+    {
+      "name": "db.cfgStr",
+      "type": "java.lang.String",
+      "description": "数据库连接时的配置字符串."
+    },
+    {
+      "name": "db.username",
+      "type": "java.lang.String",
+      "description": "数据库用户名."
+    },
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "description": "数据库密码."
+    }
+  ]
+}

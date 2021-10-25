@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.app.core.mapper.TeamMapper">
+
+    <resultMap id="teamMap" type="Team">
+        <result column="id" property="id" />
+        <result column="school_year" property="schoolYear"/>
+        <result column="professional" property="professional"/>
+        <result column="class_number" property="classNumber"/>
+    </resultMap>
+
+    <select id="selectTeam" resultMap="teamMap">
+        select *
+        from team
+        where id = #{id};
+    </select>
+
+    <select id="selectAllTeam" resultMap="teamMap">
+        select *
+        from team
+        order by school_year asc;
+    </select>
+
+    <!--    查询总个数 （只有一个参数时用_parameter）-->
+    <select id="selectTeamCount" resultType="java.lang.Integer">
+        select count(*)
+        from team
+        <if test="_parameter != null">where professional like CONCAT('%',#{_parameter},'%')</if>
+    </select>
+
+    <select id="selectTeamPage" resultMap="teamMap">
+        select *
+        from team
+        <if test="professional!=null">where professional like CONCAT('%',#{professional},'%')</if>
+        limit  #{startIndex},#{pageSize}
+    </select>
+
+    <insert id="insertTeam" parameterType="com.management.app.core.model.entity.Team" keyProperty="id">
+        insert into
+        team(school_year, professional, class_number)
+        values(#{schoolYear}, #{professional}, #{classNumber});
+    </insert>
+
+    <update id="updateTeam" parameterType="com.management.app.core.model.entity.Team">
+        UPDATE team
+        <set>
+            <if test="schoolYear != null">school_year=#{schoolYear},</if>
+            <if test="professional!=null">professional=#{professional},</if>
+            <if test="classNumber!=null">class_number=#{classNumber},</if>
+        </set>
+        WHERE
+        id=#{id};
+    </update>
+
+    <delete id="deleteTeam" parameterType="int" >
+        delete from
+        team
+        where
+        id=#{id}
+    </delete>
+
+</mapper>
