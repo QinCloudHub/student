@@ -1,13 +1,13 @@
 <template>
   <div id="student">
-    <div class="titleBar"><span>学生管理</span></div>
+    <div class="titleBar"><span>病人管理</span></div>
     <div class="container">
       <div class="body">
         <div class="operationBar">
-          <el-button type="primary" @click="dialogVisible=true">添加学生</el-button>
+          <el-button type="primary" @click="dialogVisible=true">添加病人</el-button>
           <el-dialog
             top="10vh"
-            title="学生信息"
+            title="病人信息"
             :visible.sync="dialogVisible"
             :destroy-on-close="true"
             @opened="dialogOpen"
@@ -29,7 +29,7 @@
                 let path = this.$router.history.current.path;
                 this.$router.push(path);
               }"
-              v-model="initTeamLabel" clearable placeholder="选择班级">
+              v-model="initTeamLabel" clearable placeholder="选择科室">
               <el-option
                 v-for="item in teams"
                 :key="item.id"
@@ -39,7 +39,7 @@
             </el-select>
           </div>
           <div class="findBar">
-            <input v-model="findKey" type="text" placeholder="根据姓名查询" @keyup.enter="findLikeName"></input>
+            <input v-model="findKey" type="text" placeholder="根据病人姓名查询" @keyup.enter="findLikeName"></input>
             <el-button type="primary" @click="findLikeName"><i class="el-icon-search"></i></el-button>
             <el-button type="primary" @click="()=>{this.findKey=null;findLikeName();}"><i
               class="el-icon-refresh-right"></i>重置
@@ -60,7 +60,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="学号"
+            label="病号"
             width="100">
             <!--通过 Scoped slot 可以获取到 row, column, $index 和 store（table 内部的状态管理）的数据-->
             <template slot-scope="scope">
@@ -69,7 +69,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="班级"
+            label="科室"
             width="200">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.teamFullName }}</span>
@@ -92,26 +92,12 @@
               <span style="margin-left: 10px">{{getGender(scope.row.gender)}}</span>
             </template>
           </el-table-column>
-          <el-table-column
-            label="民族"
-            width="90">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{scope.row.national}}</span>
-            </template>
-          </el-table-column>
+
           <el-table-column
             label="出生日期"
             width="120">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ getDate(scope.row.birthDate) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="籍贯"
-            show-overflow-tooltip
-            width="200">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.nativePlace }}</span>
             </template>
           </el-table-column>
           <el-table-column

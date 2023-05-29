@@ -1,12 +1,12 @@
 <template>
   <div id="team">
-    <div class="titleBar"><span>班级管理</span></div>
+    <div class="titleBar"><span>科室管理</span></div>
     <div class="container">
       <div class="body">
         <div class="operationBar">
-          <el-button type="primary" @click="dialogVisible=true">添加班级</el-button>
+          <el-button type="primary" @click="dialogVisible=true">添加科室</el-button>
           <el-dialog
-            title="班级信息"
+            title="科室信息"
             :visible.sync="dialogVisible"
             :destroy-on-close="true"
             @opened="dialogOpen"
@@ -18,13 +18,7 @@
               :oldTeamData="{ ...this.oldTeamData }"
             ></TeamDialog>
           </el-dialog>
-          <div class="findBar">
-            <input v-model="findKey" type="text" placeholder="根据专业查询" @keyup.enter="findLikeProfessional"></input>
-            <el-button type="primary" @click="findLikeProfessional"><i class="el-icon-search"></i></el-button>
-            <el-button type="primary" @click="()=>{this.findKey=null;findLikeProfessional();}"><i
-              class="el-icon-refresh-right"></i>重置
-            </el-button>
-          </div>
+
         </div>
         <!--表格-->
         <el-table
@@ -41,27 +35,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="年级"
-            width="160">
-            <!--通过 Scoped slot 可以获取到 row, column, $index 和 store（table 内部的状态管理）的数据-->
-            <template slot-scope="scope">
-              <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">{{ getYear(scope.row.schoolYear) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="专业"
-            width="200">
-            <template slot-scope="scope">
-              <el-tag
-                type="info"
-                effect="plain">
-                {{ scope.row.professional }}
-              </el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="班级"
+            label="科室"
             width="220">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">

@@ -3,14 +3,14 @@
     <div class="container">
       <div class="properties">
         <div class="property">
-          <span class="propertyTitle">学号:</span>
-          <el-input class="propertyInput" v-model="studentData.studentNumber" placeholder="请输入学号"></el-input>
+          <span class="propertyTitle">病号:</span>
+          <el-input class="propertyInput" v-model="studentData.studentNumber" placeholder="请输入病号"></el-input>
         </div>
         <div class="property">
-          <span class="propertyTitle">班级:</span>
+          <span class="propertyTitle">科室:</span>
           <el-select class="propertyInput"
                      @change="labelChange"
-                     v-model="this.initTeamLabel" clearable placeholder="选择班级">
+                     v-model="this.initTeamLabel" clearable placeholder="选择科室">
             <el-option
               v-for="item in teams"
               :key="item.id"
@@ -32,16 +32,7 @@
             </el-radio-group>
           </div>
         </div>
-        <div class="property">
-          <span class="propertyTitle">民族:</span>
-          <el-select class="propertyInput" v-model="studentData.national" clearable placeholder="选择民族">
-            <el-option
-              v-for="item in nationals"
-              :key="item"
-              :value="item">
-            </el-option>
-          </el-select>
-        </div>
+
         <div class="property">
           <span class="propertyTitle">出生日期:</span>
           <el-date-picker
@@ -145,7 +136,7 @@
       // 设置option的Label
       getLabel: function (team) {
         let year = this.getYear(team.schoolYear);
-        return `${year}级${team.professional}专业${team.classNumber}`
+        return `${team.classNumber}`
       },
       getYear: function (timestamp) {
         let date = new Date(timestamp);

@@ -3,8 +3,8 @@
     <div class="container">
       <div class="properties">
         <div class="property">
-          <span class="propertyTitle">教师号:</span>
-          <el-input class="propertyInput" v-model="teacherData.teacherNumber" placeholder="请输入教师号"></el-input>
+          <span class="propertyTitle">医生号:</span>
+          <el-input class="propertyInput" v-model="teacherData.teacherNumber" placeholder="请输入医生号"></el-input>
         </div>
         <div class="property">
           <span class="propertyTitle">姓名:</span>

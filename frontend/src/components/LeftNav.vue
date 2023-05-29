@@ -31,29 +31,25 @@
       },
       data() {
         let navMap = {
-          '/student': "学生管理",
-          '/team': "班级管理",
-          '/teacher': "教师管理",
-          '/course': "课程管理",
+          '/student': "病人管理",
+          '/team': "",
+          '/teacher': "医生管理",
+          '/course': "专业管理",
         }
         return {
           navData: [
             {
-              value: '学生管理',
+              value: '病人管理',
               toUrl: '/student',
             },
             {
-              value: '班级管理',
+              value: '科室管理',
               toUrl: '/team'
             },
             {
-              value: '教师管理',
+              value: '医生管理',
               toUrl: '/teacher'
-            },
-            {
-              value: '课程管理',
-              toUrl: '/course'
-            },
+            }
           ],
           curNav: navMap[this.$route.path],
         }

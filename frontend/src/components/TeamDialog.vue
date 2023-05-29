@@ -3,32 +3,20 @@
     <div class="container">
       <div class="properties">
         <div class="property">
-          <span class="propertyTitle">入学年份:</span>
+          <span class="propertyTitle">创立年份:</span>
           <el-date-picker
             class="propertyInput"
             format="yyyy 年"
             value-format="timestamp"
             v-model="teamData.schoolYear"
             type="year"
-            placeholder="选择入学年份">
+            placeholder="选择科室创立年份">
           </el-date-picker>
         </div>
-        <div class="property">
-          <span class="propertyTitle">专业:</span>
-          <el-select class="propertyInput"
-                     v-model="teamData.professional" filterable allow-create placeholder="请选择"
-                     no-data-text="输入专业名即可添加">
-            <el-option
-              v-for="item in professionalList"
-              :key="item"
-              :label="item"
-              :value="item">
-            </el-option>
-          </el-select>
-        </div>
+
         <div class="property">
           <span class="propertyTitle">班级:</span>
-          <el-input class="propertyInput" v-model="teamData.classNumber" placeholder="请输入班级"></el-input>
+          <el-input class="propertyInput" v-model="teamData.classNumber" placeholder="请输入科室名"></el-input>
         </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="closeClick">取 消</el-button>

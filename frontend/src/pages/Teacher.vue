@@ -1,13 +1,13 @@
 <template>
   <div id="teacher">
-    <div class="titleBar"><span>教师管理</span></div>
+    <div class="titleBar"><span>医生管理</span></div>
     <div class="container">
       <div class="body">
         <div class="operationBar">
-          <el-button type="primary" @click="dialogVisible=true">添加教师</el-button>
+          <el-button type="primary" @click="dialogVisible=true">添加医生</el-button>
           <el-dialog
             top="10vh"
-            title="教师信息"
+            title="医生信息"
             :visible.sync="dialogVisible"
             :destroy-on-close="true"
             @opened="dialogOpen"
@@ -41,7 +41,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="教师号"
+            label="医生号"
             width="100">
             <!--通过 Scoped slot 可以获取到 row, column, $index 和 store（table 内部的状态管理）的数据-->
             <template slot-scope="scope">

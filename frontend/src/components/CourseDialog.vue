@@ -143,7 +143,7 @@
       // 设置option的Label
       getLabel: function (team) {
         let year = this.getYear(team.schoolYear);
-        return `${year}级${team.professional}专业${team.classNumber}`
+        return `${year}级${team.professional} 专业${team.classNumber}`
       },
       getYear: function (timestamp) {
         let date = new Date(timestamp);

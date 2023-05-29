@@ -116,9 +116,7 @@ public class StudentVO {
         this.setNativePlace(student.getNativePlace());
         Team team = TeamQuery.getBy(student.getTeamId());
         if (team != null) {
-            String teamFullName = String.format("%s级%s专业%s",
-                    team.getSchoolYear().getYear(),
-                    team.getProfessional(),
+            String teamFullName = String.format("%s",
                     team.getClassNumber());
             this.setTeamFullName(teamFullName);
             this.setTeamId(team.getId());
